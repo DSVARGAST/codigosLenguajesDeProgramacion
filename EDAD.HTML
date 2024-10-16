@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Edad</title>
+    <style>
+        body {
+            background-color: blue;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .container {
+            border: 2px solid black;
+            display: inline-block;
+            padding: 20px;
+            background-color: green;
+        }
+        input {
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calculadora de Edad</h1>
+    <div class="container">
+        <p>Ingrese el día de nacimiento</p>
+        <input type="number" id="dia" placeholder="Día" min="1" max="31">
+        <p>Ingrese el mes de nacimiento</p>
+        <input type="number" id="mes" placeholder="Mes" min="1" max="12">
+        <p>Ingrese el año de nacimiento</p>
+        <input type="number" id="anio" placeholder="Año">
+        <br>
+        <button onclick="calcularEdad()">Calcular Edad</button>
+        <div class="result" id="resultado"></div>
+    </div>
+
+    <script>
+        function calcularEdad() {
+            const dia = parseInt(document.getElementById('dia').value);
+            const mes = parseInt(document.getElementById('mes').value) - 1; // Meses en JavaScript van de 0 a 11
+            const anio = parseInt(document.getElementById('anio').value);
+
+            if (isNaN(dia) || isNaN(mes) || isNaN(anio)) {
+                document.getElementById('resultado').textContent = "Por favor, ingrese una fecha válida";
+                return;
+            }
+
+            const fechaNacimiento = new Date(anio, mes, dia);
+            const hoy = new Date();
+
+            let edadAnios = hoy.getFullYear() - fechaNacimiento.getFullYear();
+            let edadMeses = hoy.getMonth() - fechaNacimiento.getMonth();
+            let edadDias = hoy.getDate() - fechaNacimiento.getDate();
+
+            // Ajuste si no ha cumplido años este año
+            if (edadMeses < 0 || (edadMeses === 0 && edadDias < 0)) {
+                edadAnios--;
+                edadMeses += 12;
+            }
+
+            // Ajuste si no ha cumplido el mes completo
+            if (edadDias < 0) {
+                const ultimoDiaMesAnterior = new Date(hoy.getFullYear(), hoy.getMonth(), 0).getDate();
+                edadDias += ultimoDiaMesAnterior;
+                edadMeses--;
+            }
+
+            document.getElementById('resultado').textContent = 
+                `La edad es: ${edadAnios} años, ${edadMeses} meses, y ${edadDias} días.`;
+        }
+    </script>
+</body>
+</html>

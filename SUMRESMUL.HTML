@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operaciones con 3 Números</title>
+    <style>
+        body {
+            background-color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .container {
+            border: 2px solid black;
+            display: inline-block;
+            padding: 20px;
+            background-color: blue;
+        }
+        input {
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Operaciones con 3 Números</h1>
+    <div class="container">
+        <p>Ingrese el primer número</p>
+        <input type="number" id="numero1" placeholder="Primer número">
+        <p>Ingrese el segundo número</p>
+        <input type="number" id="numero2" placeholder="Segundo número">
+        <p>Ingrese el tercer número</p>
+        <input type="number" id="numero3" placeholder="Tercer número">
+        <br>
+        <button onclick="calcular()">Calcular</button>
+        <div class="result" id="resultado"></div>
+    </div>
+
+    <script>
+        function calcular() {
+            const num1 = parseFloat(document.getElementById('numero1').value);
+            const num2 = parseFloat(document.getElementById('numero2').value);
+            const num3 = parseFloat(document.getElementById('numero3').value);
+
+            if (isNaN(num1) || isNaN(num2) || isNaN(num3)) {
+                document.getElementById('resultado').textContent = "Por favor, ingrese los tres números";
+            } else {
+                const suma = num1 + num2 + num3;
+                const resta = num1 - num2 - num3;
+                const multiplicacion = num1 * num2 * num3;
+                document.getElementById('resultado').textContent = 
+                    `LA SUMA: ${suma}, LA RESTA: ${resta} Y LA MULTIPLICACIÓN: ${multiplicacion}`;
+            }
+        }
+    </script>
+</body>
+</html>
